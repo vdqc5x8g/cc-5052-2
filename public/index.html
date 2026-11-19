@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Hover Race — Spectator Display Layer</title>
+<link rel="stylesheet" href="/public/style.css" />
+</head>
+<body>
+<div id="app">
+  <canvas id="viewport"></canvas>
+
+  <header class="hud hud-top">
+    <div class="brand">
+      <span class="dot"></span>
+      <div>
+        <h1>HOVER RACE · SPECTATOR</h1>
+        <p id="conn" class="muted">connecting…</p>
+      </div>
+    </div>
+    <div class="clockblock">
+      <div class="clockrow"><span>DISPLAY LAG</span><b id="lag">—</b></div>
+      <div class="clockrow"><span>BUFFER</span><b id="buffer">—</b></div>
+      <div class="clockrow"><span>MODE</span><b id="mode">—</b></div>
+      <div class="clockrow"><span>TIME SCALE</span><b id="rate">—</b></div>
+    </div>
+  </header>
+
+  <aside class="hud hud-left">
+    <section>
+      <h2>Remote display</h2>
+      <div id="vehicleList" class="vehicles"></div>
+    </section>
+    <section>
+      <h2>Display clock</h2>
+      <label>Delay <output id="delayOut">300 ms</output>
+        <input id="delay" type="range" min="0" max="800" step="10" value="300" />
+      </label>
+      <div class="bufferbar" title="Data available ahead of the display cursor">
+        <div class="bufferfill" id="bufferFill"></div>
+      </div>
+      <div class="clockrow"><span>BUFFERED AHEAD / DELAY</span><b id="depthOut">—</b></div>
+      <p class="hint">Display delay is also the reorder buffer depth. Larger = smoother, more lag. If the cursor nears the newest sample the clock slows down rather than extrapolating.</p>
+    </section>
+    <section>
+      <h2>Network (server-injected)</h2>
+      <label>Latency <output id="latOut">70 ms</output>
+        <input id="lat" type="range" min="0" max="400" step="5" value="70" /></label>
+      <label>Jitter <output id="jitOut">16 ms</output>
+        <input id="jit" type="range" min="0" max="200" step="2" value="16" /></label>
+      <label>Loss <output id="lossOut">2 %</output>
+        <input id="loss" type="range" min="0" max="100" step="1" value="2" /></label>
+      <label>Burst chance <output id="burstOut">1.2 %</output>
+        <input id="burst" type="range" min="0" max="40" step="0.2" value="1.2" /></label>
+      <button id="forceBurst" class="danger">Force 1200 ms blackout</button>
+    </section>
+  </aside>
+
+  <aside class="hud hud-right">
+    <section>
+      <h2>Measure vs. truth</h2>
+      <table class="metrics">
+        <tbody>
+          <tr><td>Position error (avg / max)</td><td id="posErr">—</td></tr>
+          <tr><td>Heading error (avg / max)</td><td id="headErr">—</td></tr>
+          <tr><td>Discontinuities</td><td id="disc">—</td></tr>
+          <tr><td>Clock resyncs (reported)</td><td id="resyncs">—</td></tr>
+          <tr><td>Extrapolated / held</td><td id="modes">—</td></tr>
+          <tr><td>Packets rx / lost</td><td id="pkts">—</td></tr>
+          <tr><td>Out-of-order / dupes</td><td id="ooo">—</td></tr>
+        </tbody>
+      </table>
+      <div class="legend">
+        <span><i class="sw sw-authority"></i>authority (server truth)</span>
+        <span><i class="sw sw-display"></i>displayed (interpolated)</span>
+        <span><i class="sw sw-trail"></i>display trail</span>
+      </div>
+    </section>
+    <section>
+      <h2>Controls</h2>
+      <p class="hint">Drive JUNO: <kbd>W</kbd> throttle · <kbd>S</kbd> brake · <kbd>A</kbd><kbd>D</kbd> steer · <kbd>Space</kbd> boost burst</p>
+      <p class="hint">Camera: drag orbit · wheel zoom · <kbd>C</kbd> cycle target · <kbd>T</kbd> toggle truth overlay · <kbd>P</kbd> pause trail</p>
+      <div id="inputState" class="inputstate"></div>
+    </section>
+  </aside>
+
+  <div id="toast" class="toast"></div>
+  <div id="banner" class="banner hidden"></div>
+</div>
+<script type="importmap">
+{ "imports": {
+  "three": "/vendor/three.module.js",
+  "three/addons/": "/vendor/jsm/"
+} }
+</script>
+<script type="module" src="/public/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,26 @@
+{
+  "name": "hover-spectator",
+  "version": "0.1.0",
+  "description": "Hover racing spectator display layer with timestamped remote vehicle interpolation",
+  "main": "index.js",
+  "scripts": {
+    "test": "node --test \"test/*.test.js\"",
+    "start": "node server/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vdqc5x8g/cc-5052-2.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/vdqc5x8g/cc-5052-2/issues"
+  },
+  "homepage": "https://github.com/vdqc5x8g/cc-5052-2#readme",
+  "type": "module",
+  "dependencies": {
+    "three": "^0.170.0",
+    "ws": "^8.23.0"
+  }
+}
