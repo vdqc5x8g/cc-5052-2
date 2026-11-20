@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "node --test \"test/*.test.js\"",
+    "acceptance": "node acceptance/run-acceptance.js",
     "start": "node server/index.js"
   },
   "repository": {
